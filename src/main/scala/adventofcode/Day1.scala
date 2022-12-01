@@ -1,14 +1,18 @@
 package adventofcode
 
+import scala.collection.mutable.ListBuffer
 import scala.io.Source
 import scala.reflect.ClassTag
 
-object Skeleton {
-  val day = this.getClass.getSimpleName.replace("Day", "").replace("$", "")
-  val example = true
+object Day1 {
+  val day: String = this.getClass.getSimpleName.replace("Day", "").replace("$", "")
+  val example = false
 
   def main(args: Array[String]): Unit = {
     val fileInput = readFile()
+    val elvenCalorieLists = mapLines(fileInput)
+    val elvenCaloriesSummed = elvenCalorieLists.map(calorieList => calorieList.sum)
+    println(elvenCaloriesSummed.sorted.takeRight(3).sum)
     }
 
   def readFile(): List[String] = {
@@ -20,19 +24,19 @@ object Skeleton {
     list
   }
 
-  extension [T:ClassTag] (twoDimArr:Array[Array[T]]) {
-    def mirrored: Array[Array[T]] = {
-      var arr = Array.ofDim[T](twoDimArr.head.length, twoDimArr.length)
-      for (i <- 0 until twoDimArr.length) {
-        for (j <- 0 until twoDimArr(i).length){
-          arr(j)(i) = twoDimArr(i)(j)
-        }
+  def mapLines(lines: List[String]): List[List[Int]] = {
+    val elvenCalorieLists = new ListBuffer[List[Int]]()
+    var currentList = new ListBuffer[Int]()
+    lines.foreach(line => {
+      if(line.isBlank) {
+        elvenCalorieLists.addOne(currentList.toList)
+        currentList = new ListBuffer[Int]()
       }
-      arr
-    }
-
-    def print(twoDimesionalArr: Array[Array[T]]) : Unit = {
-      twoDimesionalArr.foreach(oneDimesionalArr => oneDimesionalArr.mkString(""))
-    }
+      else {
+        currentList.addOne(line.toInt)
+      }
+    })
+    elvenCalorieLists.addOne(currentList.toList)
+    elvenCalorieLists.toList
   }
 }
