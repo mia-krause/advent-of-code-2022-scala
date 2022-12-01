@@ -11,8 +11,9 @@ object Day1 {
   def main(args: Array[String]): Unit = {
     val fileInput = readFile()
     val elvenCalorieLists = mapLines(fileInput)
-    val elvenCaloriesSummed = elvenCalorieLists.map(calorieList => calorieList.sum)
-    println(elvenCaloriesSummed.sorted.takeRight(3).sum)
+    val elvenCaloriesSummed = elvenCalorieLists.map(_.sum)
+    println("Part 1: " + elvenCaloriesSummed.max)
+    println("Part 2: " + elvenCaloriesSummed.sorted.takeRight(3).sum)
     }
 
   def readFile(): List[String] = {
@@ -25,18 +26,6 @@ object Day1 {
   }
 
   def mapLines(lines: List[String]): List[List[Int]] = {
-    val elvenCalorieLists = new ListBuffer[List[Int]]()
-    var currentList = new ListBuffer[Int]()
-    lines.foreach(line => {
-      if(line.isBlank) {
-        elvenCalorieLists.addOne(currentList.toList)
-        currentList = new ListBuffer[Int]()
-      }
-      else {
-        currentList.addOne(line.toInt)
-      }
-    })
-    elvenCalorieLists.addOne(currentList.toList)
-    elvenCalorieLists.toList
+    lines.mkString(",").split(",,").map(_.split(',').map(_.toInt).toList).toList
   }
 }
