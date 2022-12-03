@@ -3,9 +3,7 @@ package adventofcode
 import scala.io.Source
 import scala.reflect.ClassTag
 
-object Day2 {
-  val day: String = this.getClass.getSimpleName.replace("Day", "").replace("$", "")
-  val example = false
+object Day2 extends AocBase {
   val trumpsOver: Map[Sign, Sign] = Map(Rock -> Scissors, Paper -> Rock, Scissors -> Paper)
   val losesTo: Map[Sign, Sign] = Map(Rock -> Paper, Paper -> Scissors, Scissors -> Rock)
 
@@ -57,14 +55,5 @@ object Day2 {
 
   def parseLinesPart2(lines: List[String]): List[(Sign, Sign)] = {
     lines.map(_.toCharArray).map(arr => (Sign.createElfSign(arr(0)), Sign.createMyReactiveSign(arr(2), Sign.createElfSign(arr(0)))))
-  }
-
-  def readFile(): List[String] = {
-    var filename = s"src/main/resources/input_day${day}"
-    if(example) filename += "_example"
-    val source = Source.fromFile(filename)
-    val list = source.getLines().toList
-    source.close()
-    list
   }
 }
