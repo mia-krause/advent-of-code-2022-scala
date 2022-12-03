@@ -4,19 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>advent-of-code-2021-scala</groupId>
-    <artifactId>advent-of-code-2021-scala</artifactId>
+    <groupId>advent-of-code-2022-scala</groupId>
+    <artifactId>advent-of-code-2022-scala</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <jdk.version>17</jdk.version>
-        <scala.compat.version>3.1.0</scala.compat.version>
-        <scala.version>3.1.0</scala.version>
+        <scala.compat.version>3.2.0</scala.compat.version>
+        <scala.version>3.2.0</scala.version>
     </properties>
 
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>
-        <testSourceDirectory>src/test/scala</testSourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
