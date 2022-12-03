@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
 import scala.io.Source
 import scala.reflect.ClassTag
 
-object Day1 extends AocBase{
+object Day1 extends AocBase[Int]{
   def main(args: Array[String]): Unit = {
     val fileInput = readFile()
     val elvenCalorieLists = mapLines(fileInput)

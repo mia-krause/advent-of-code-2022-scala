@@ -3,7 +3,7 @@ package adventofcode
 import scala.io.Source
 import scala.reflect.ClassTag
 
-object Day2 extends AocBase {
+object Day2 extends AocBase[Int] {
   val trumpsOver: Map[Sign, Sign] = Map(Rock -> Scissors, Paper -> Rock, Scissors -> Paper)
   val losesTo: Map[Sign, Sign] = Map(Rock -> Paper, Paper -> Scissors, Scissors -> Rock)
 

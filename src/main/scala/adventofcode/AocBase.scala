@@ -3,9 +3,8 @@ package adventofcode
 import scala.io.Source
 import scala.reflect.ClassTag
 
-trait AocBase {
+trait AocBase[Result] {
   val day: String = this.getClass.getSimpleName.replace("Day", "").replace("$", "")
-  val fileInput: List[String] = readFile()
 
   def readFile(example: Boolean = false): List[String] = {
     var filename = s"src/main/resources/input_day${day}"
@@ -15,12 +14,14 @@ trait AocBase {
     source.close()
     list
   }
-  
-  def part1(func: () => _) = solve("Part 1", func)
-  def part2(func: () => _) = solve("Part 2", func)
-  
-  def solve(msg: String, func: () => _): Unit = {
-    val result = func()
-    println(s"$msg : $result")
+
+  def part1(exampleResult: Result, func: List[String] => Result) = solve("Part 1", func, exampleResult)
+  def part2(exampleResult: Result, func: List[String] => Result) = solve("Part 2", func, exampleResult)
+
+  def solve(msg: String, func: List[String] => Result, expectedExampleResult: Result): Unit = {
+    val exampleResult = func(readFile(true))
+    assert(expectedExampleResult == exampleResult, s"Expected $expectedExampleResult, but calculated $exampleResult")
+    val result = func(readFile(false))
+    println(s"$msg: $result")
   }
 }

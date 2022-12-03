@@ -3,11 +3,10 @@ package adventofcode
 import scala.io.Source
 import scala.reflect.ClassTag
 
-object Skeleton extends AocBase{
+object Skeleton extends AocBase[String] {
 
   def main(args: Array[String]): Unit = {
-    val fileInput = readFile(example = true)
-    part1(() => "")
-    part2(() => "")
+    part1("", (_:List[String]) => "")
+    part2("", (_:List[String]) => "")
   }
 }

@@ -1,10 +1,10 @@
 package adventofcode
 
-object Day3 extends AocBase {
+object Day3 extends AocBase[Int] {
 
   def main(args: Array[String]): Unit = {
-    part1(() => fileInput.map(str => str.splitAt(str.length / 2)).map(evaluateRucksacks1).map(toValue).sum)
-    part2(() => fileInput.sliding(3, 3).map(evaluateRucksacks2).map(toValue).sum)
+    part1(157, (input: List[String]) => input.map(str => str.splitAt(str.length / 2)).map(evaluateRucksacks1).map(toValue).sum)
+    part2(70, (input: List[String]) => input.sliding(3, 3).map(evaluateRucksacks2).map(toValue).sum)
     }
 
   def toValue(char:Char): Int =  if char.isUpper then char - 'A' + 27 else char - 'a' + 1
