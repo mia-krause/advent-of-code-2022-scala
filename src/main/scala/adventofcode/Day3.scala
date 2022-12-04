@@ -1,5 +1,7 @@
 package adventofcode
 
+import adventofcode.extensions.SeqExtensions._
+
 object Day3 extends AocBase[Int] {
 
   def main(args: Array[String]): Unit = {
@@ -10,12 +12,12 @@ object Day3 extends AocBase[Int] {
   def toValue(char:Char): Int =  if char.isUpper then char - 'A' + 27 else char - 'a' + 1
 
   def evaluateRucksacks1(rucksacks: (String, String)): Char = {
-    val overlaps = rucksacks._1.intersect(rucksacks._2)
+    val overlaps = rucksacks._1 & rucksacks._2
     overlaps.head
   }
 
   def evaluateRucksacks2(rucksacks: List[String]): Char = {
-    val overlaps = rucksacks.head.intersect(rucksacks(1)).intersect(rucksacks(2))
+    val overlaps = rucksacks.head & rucksacks(1) & rucksacks(2)
     overlaps(0)
   }
 }
