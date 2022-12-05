@@ -1,9 +1,11 @@
 package adventofcode
 
-import adventofcode.Day5.{Crate, Movement, Stack}
+import adventofcode.Day5.{Crate, Movement}
 import adventofcode.extensions.SeqExtensions.*
 import adventofcode.extensions.StringExtensions.*
 import adventofcode.extensions.TupleExtensions.*
+
+import adventofcode.utils.Stack
 
 import scala.io.Source
 import scala.reflect.ClassTag
@@ -41,7 +43,7 @@ object Day5 extends AocBase[String] {
   }
 
   def move9001(stacks: Array[Stack[Crate]], movement: Movement): Array[Stack[Crate]] = {
-    stacks(movement.to-1).push(stacks(movement.from-1).pop(movement.n))
+    stacks(movement.to-1).pushAsBlock(stacks(movement.from-1).popAsBlock(movement.n))
     stacks
   }
 
@@ -79,29 +81,10 @@ object Day5 extends AocBase[String] {
     )
   }
 
-  case class Movement(n: Int, from: Int, to: Int){
-    override def toString: String = s"move $n from $from to $to"
-  }
+  case class Movement(n: Int, from: Int, to: Int)
 
   case class Crate(content: Char){
     def this(string: String) = this(string.replace("[", "").replace("]", "").trim.head)
     override def toString: String = s"[$content]"
   }
-
-  class Stack[A]:
-    private var elements: List[A] = List.empty
-    def push(x: A): Unit = elements = elements.prepended(x)
-
-    def push(x: List[A]): Unit = elements = elements.prependedAll(x)
-
-    def peek: A = elements.head
-
-    def pop(): A = pop(1).head
-
-    def pop(n: Int): List[A] =
-      val currentTop = elements.take(n)
-      elements = elements.takeRight(elements.length-n)
-      currentTop
-
-    override def toString: String = elements.mkString(" ")
 }
