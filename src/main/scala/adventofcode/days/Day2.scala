@@ -1,7 +1,6 @@
-package adventofcode
+package adventofcode.days
 
-import scala.io.Source
-import scala.reflect.ClassTag
+import adventofcode.AocBase
 
 object Day2 extends AocBase[Int] {
   val trumpsOver: Map[Sign, Sign] = Map(Rock -> Scissors, Paper -> Rock, Scissors -> Paper)
@@ -31,8 +30,11 @@ object Day2 extends AocBase[Int] {
       return LOST
     }
   }
+
   case object Rock extends Sign(1)
+
   case object Paper extends Sign(2)
+
   case object Scissors extends Sign(3)
 
   val LOST = 0
@@ -43,8 +45,8 @@ object Day2 extends AocBase[Int] {
   def main(args: Array[String]): Unit = {
     val lines = readFile()
     val signsPerRound = parseLinesPart2(lines)
-    val valueSums: (Int, Int) = signsPerRound.map((elfSign:Sign, mySign: Sign) => (elfSign.value, mySign.value)).fold(0, 0)((x, y) => (x._1 + y._1, x._2 + y._2))
-    val results:List[Int] = signsPerRound.map((elfSign, mySign ) => mySign.evaluate(elfSign))
+    val valueSums: (Int, Int) = signsPerRound.map((elfSign: Sign, mySign: Sign) => (elfSign.value, mySign.value)).fold(0, 0)((x, y) => (x._1 + y._1, x._2 + y._2))
+    val results: List[Int] = signsPerRound.map((elfSign, mySign) => mySign.evaluate(elfSign))
     val overallResult = results.sum + valueSums._2
     println(overallResult)
   }

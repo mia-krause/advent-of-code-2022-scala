@@ -1,14 +1,8 @@
-package adventofcode
+package adventofcode.days
 
-import adventofcode.Day5.{Crate, Movement}
-import adventofcode.extensions.SeqExtensions.*
-import adventofcode.extensions.StringExtensions.*
-import adventofcode.extensions.TupleExtensions.*
-
+import adventofcode.AocBase
 import adventofcode.utils.Stack
 
-import scala.io.Source
-import scala.reflect.ClassTag
 import scala.util.matching.Regex
 
 object Day5 extends AocBase[String] {
@@ -16,12 +10,12 @@ object Day5 extends AocBase[String] {
   val crateRegex: Regex = raw"\[(\w)]".r
 
   def main(args: Array[String]): Unit = {
-    part1("CMZ", (input:List[String]) => {
+    part1("CMZ", (input: List[String]) => {
       val (stacks, movements) = parseInput(input)
       val resultingStacks = move(stacks, movements, 9000)
       resultingStacks.map(_.peek.content).mkString
     })
-    part2("MCD", (input:List[String]) => {
+    part2("MCD", (input: List[String]) => {
       val (stacks, movements) = parseInput(input)
       val resultingStacks = move(stacks, movements, 9001)
       resultingStacks.map(_.peek.content).mkString
@@ -31,19 +25,19 @@ object Day5 extends AocBase[String] {
 
   def move(stacks: Array[Stack[Crate]], movements: List[Movement], crateMoverVersion: Int = 9000): Array[Stack[Crate]] = {
     crateMoverVersion match
-      case 9000 => movements.foldLeft(stacks){(currentStacks: Array[Stack[Crate]], movement: Movement) => move9000(currentStacks, movement)}
-      case 9001 => movements.foldLeft(stacks){(currentStacks: Array[Stack[Crate]], movement: Movement) => move9001(currentStacks, movement)}
+      case 9000 => movements.foldLeft(stacks) { (currentStacks: Array[Stack[Crate]], movement: Movement) => move9000(currentStacks, movement) }
+      case 9001 => movements.foldLeft(stacks) { (currentStacks: Array[Stack[Crate]], movement: Movement) => move9001(currentStacks, movement) }
   }
 
   def move9000(stacks: Array[Stack[Crate]], movement: Movement): Array[Stack[Crate]] = {
     for _ <- 0 until movement.n do {
-      stacks(movement.to-1).push(stacks(movement.from-1).pop())
+      stacks(movement.to - 1).push(stacks(movement.from - 1).pop())
     }
     stacks
   }
 
   def move9001(stacks: Array[Stack[Crate]], movement: Movement): Array[Stack[Crate]] = {
-    stacks(movement.to-1).pushAsBlock(stacks(movement.from-1).popAsBlock(movement.n))
+    stacks(movement.to - 1).pushAsBlock(stacks(movement.from - 1).popAsBlock(movement.n))
     stacks
   }
 
@@ -83,8 +77,9 @@ object Day5 extends AocBase[String] {
 
   case class Movement(n: Int, from: Int, to: Int)
 
-  case class Crate(content: Char){
+  case class Crate(content: Char) {
     def this(string: String) = this(string.replace("[", "").replace("]", "").trim.head)
+
     override def toString: String = s"[$content]"
   }
 }

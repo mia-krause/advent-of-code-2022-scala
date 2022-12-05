@@ -1,8 +1,8 @@
-package adventofcode
+package adventofcode.days
 
-import scala.collection.immutable.{Set, StringOps}
-import adventofcode.extensions.TupleExtensions.*
-import adventofcode.extensions.StringExtensions.*
+import adventofcode.AocBase
+import adventofcode.extensions.TupleExtensions._
+import adventofcode.extensions.StringExtensions._
 
 object Day4 extends AocBase[Int] {
   def main(args: Array[String]): Unit = {
